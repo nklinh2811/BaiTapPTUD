@@ -24,20 +24,71 @@
         header {
             background: linear-gradient(135deg, #005c97, #363795);
             color: #fff;
-            padding: 30px;
+            padding: 28px 30px;
             text-align: center;
         }
-        header h1 { font-size: 24px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-        header p { font-size: 15px; opacity: 0.92; }
-        .student-info {
+        header h1 { font-size: 23px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        header p { font-size: 14.5px; opacity: 0.92; }
+
+        /* 3.1 Thông tin cá nhân */
+        .profile-card {
             background: #eef3f8;
-            padding: 15px 30px;
+            padding: 24px 30px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
             border-bottom: 1px solid #dce4ec;
-            font-size: 14px;
+            flex-wrap: wrap;
         }
+        .avatar {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #005c97;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+            flex-shrink: 0;
+        }
+        .profile-details h2 {
+            font-size: 19px;
+            color: #005c97;
+            margin-bottom: 8px;
+        }
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 6px 24px;
+            font-size: 14.5px;
+        }
+        .profile-grid a {
+            color: #005c97;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .profile-grid a:hover { text-decoration: underline; }
+
+        /* 3.2 Giới thiệu bài thực hành */
+        .intro-box {
+            padding: 22px 30px;
+            background: #fafcff;
+            border-bottom: 1px solid #e6ecf2;
+        }
+        .intro-box h2 {
+            font-size: 17px;
+            color: #005c97;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .intro-box p {
+            font-size: 14.5px;
+            color: #444;
+            text-align: justify;
+            margin-bottom: 8px;
+        }
+        .intro-box p:last-child { margin-bottom: 0; }
+
         .content { padding: 30px; }
         .lab-section { margin-bottom: 30px; }
         .lab-section:last-child { margin-bottom: 0; }
@@ -88,15 +139,41 @@
 <div class="container">
     <header>
         <h1>Bài Tập Thực Hành Chương 4: JavaScript & jQuery</h1>
-        <p>Học phần: Phát triển ứng dụng Thương mại điện tử | GVHD: ThS. Nguyễn Mạnh Tuấn</p>
+        <p>Học phần: Phát triển ứng dụng Thương mại điện tử | GVHD: TS. Nguyễn Mạnh Tuấn</p>
     </header>
 
-    <div class="student-info">
-        <div><strong>Sinh viên thực hiện:</strong> Ngô Khánh Linh</div>
-        <div><strong>MSSV:</strong> 31241027738</div>
-        <div><strong>Trường:</strong> Đại học Kinh tế TP. Hồ Chí Minh (UEH)</div>
-    </div>
+    <!-- 3.1 THÔNG TIN CÁ NHÂN -->
+    <section class="profile-card">
+        <img class="avatar" src="avatar.jpg" onerror="this.src='https://github.com/nklinh2811.png'" alt="Ảnh đại diện Ngô Khánh Linh">
+        <div class="profile-details">
+            <h2>Thông tin sinh viên thực hiện</h2>
+            <div class="profile-grid">
+                <div><strong>Họ và tên:</strong> Ngô Khánh Linh</div>
+                <div><strong>Mã số sinh viên:</strong> 31241027738</div>
+                <div><strong>Lớp học phần:</strong> 26C1INF50902701</div>
+                <div><strong>Đơn vị:</strong> Khoa CNTT Kinh doanh – UEH</div>
+                <div style="grid-column: 1 / -1;">
+                    <strong>GitHub cá nhân:</strong> 
+                    <a href="https://github.com/nklinh2811" target="_blank">https://github.com/nklinh2811</a>
+                    &nbsp;|&nbsp;
+                    <a href="https://github.com/nklinh2811/BaiTapPTUD" target="_blank">Repository BaiTapPTUD</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- 3.2 GIỚI THIỆU VỀ BÀI THỰC HÀNH -->
+    <section class="intro-box">
+        <h2>Giới thiệu về bài thực hành</h2>
+        <p>
+            <strong>Mục tiêu thực hiện 03 bài Lab:</strong> Chuỗi bài thực hành từ Lab 08 đến Lab 10 nhằm giúp sinh viên nắm vững nền tảng lập trình JavaScript phía trình duyệt (Client-side), từ cú pháp cơ bản, cấu trúc dữ liệu (mảng, đối tượng) ở <em>Lab 08</em>; kỹ thuật truy xuất cây DOM, lắng nghe sự kiện và kiểm tra tính hợp lệ dữ liệu biểu mẫu ở <em>Lab 09</em>; đến việc ứng dụng thư viện jQuery để tối ưu thao tác giao diện, tạo hiệu ứng hoạt họa và gọi dữ liệu bất đồng bộ (AJAX/JSON) ở <em>Lab 10</em>.
+        </p>
+        <p>
+            <strong>Vai trò của JavaScript trong phát triển ứng dụng web:</strong> Bên cạnh HTML định hình cấu trúc và CSS thiết kế giao diện, JavaScript giữ vai trò cốt lõi trong việc tạo nên tính tương tác động và trải nghiệm người dùng mượt mà cho website hiện đại. JavaScript cho phép phản hồi tức thì thao tác của khách hàng, xác thực dữ liệu đầu vào trước khi gửi về máy chủ, cập nhật nội dung trang theo thời gian thực mà không cần tải lại toàn bộ trang, đồng thời là nền tảng để phát triển các ứng dụng Thương mại điện tử quy mô lớn.
+        </p>
+    </section>
+
+    <!-- DANH MỤC BÀI THỰC HÀNH -->
     <div class="content">
         <!-- LAB 08 -->
         <div class="lab-section">
