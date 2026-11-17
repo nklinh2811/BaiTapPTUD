@@ -1,0 +1,44 @@
+.outer-container {
+    width: 350px;
+    margin: 30px auto;
+}
+.title-wrapper {
+    display: block;
+    font-family: sans-serif;
+    font-size: 18px;
+    margin-bottom: 4px;
+    margin-left: 10px;
+}
+
+#wrapper {
+    display: grid;
+    grid-template-columns: 25% 1fr;
+    gap: 8px;
+    border: 2px solid #000;
+    padding: 8px;
+    box-sizing: border-box;
+}
+header, footer {
+    grid-column: 1 / -1;
+}
+header, nav, main, footer {
+    border: 2px solid #000;
+    box-sizing: border-box;
+    padding: 5px;
+    font-family: sans-serif;
+    font-size: 18px;
+}
+header {
+    height: 60px;
+}
+nav {
+    height: 250px;
+}
+
+main {
+    height: 250px;
+}
+
+footer {
+    height: 50px;
+}
