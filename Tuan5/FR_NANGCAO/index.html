@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio bài thực hành buổi 5 - JavaScript và Chrome Dino của Ngô Khánh Linh.">
+    <title>Bài tập buổi 5 | JavaScript thực hành - Ngô Khánh Linh</title>
+    <style>
+        :root {
+            --primary: #176b87;
+            --secondary: #164e63;
+            --accent: #38bdf8;
+            --bg: #f1f7fa;
+            --card: #ffffff;
+            --soft: #eaf4f8;
+            --text: #183344;
+            --muted: #587080;
+            --border: #d8e6ec;
+            --shadow: 0 10px 28px rgba(22, 78, 99, .08);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        nav {
+            position: sticky; top: 0; z-index: 10;
+            background: rgba(255,255,255,.96);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 3px 14px rgba(22,78,99,.05);
+        }
+        .nav-inner {
+            max-width: 1080px; margin: auto; padding: 12px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 14px; flex-wrap: wrap;
+        }
+        .brand { color: var(--primary); font-weight: 800; letter-spacing: .2px; }
+        .nav-links { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+        .nav-links a {
+            color: var(--text); text-decoration: none; font-size: 14px; font-weight: 600;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .theme-btn {
+            border: 0; border-radius: 8px; padding: 8px 12px;
+            background: var(--primary); color: white; cursor: pointer; font-weight: 700;
+        }
+        .container {
+            max-width: 1080px; margin: 28px auto; padding: 0 18px;
+            display: flex; flex-direction: column; gap: 22px;
+        }
+        header {
+            padding: 42px 28px; border-radius: 18px; color: white; text-align: center;
+            background: linear-gradient(135deg, #164e63, #0e7490 58%, #38bdf8);
+            box-shadow: var(--shadow);
+        }
+        header .eyebrow {
+            display: inline-block; padding: 5px 12px; margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,.45); border-radius: 30px;
+            font-size: 12px; font-weight: 700; letter-spacing: 1px;
+        }
+        header h1 { font-size: clamp(24px, 4vw, 34px); line-height: 1.25; margin-bottom: 10px; }
+        header p { opacity: .94; font-size: 15px; }
+        .card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 15px; padding: 26px 28px; box-shadow: var(--shadow);
+        }
+        .section-title {
+            color: var(--primary); font-size: 20px; margin-bottom: 18px;
+            padding-left: 13px; border-left: 4px solid var(--accent);
+        }
+        .profile { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .avatar {
+            width: 112px; height: 112px; border-radius: 50%; object-fit: cover;
+            border: 4px solid var(--soft); background: var(--soft);
+        }
+        .profile-grid {
+            flex: 1; min-width: 240px; display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 9px 22px;
+        }
+        .profile-grid a { color: var(--primary); text-decoration: none; font-weight: 700; }
+        .profile-grid a:hover { text-decoration: underline; }
+        .intro { color: var(--muted); }
+        .intro p + p { margin-top: 10px; }
+        .learning-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(225px, 1fr)); gap: 14px;
+        }
+        .learning-item {
+            background: var(--soft); border: 1px solid var(--border);
+            border-radius: 12px; padding: 18px;
+        }
+        .learning-item .number {
+            display: inline-grid; place-items: center; width: 32px; height: 32px;
+            margin-bottom: 10px; border-radius: 9px; color: white;
+            background: var(--primary); font-weight: 800;
+        }
+        .learning-item h3 { font-size: 16px; margin-bottom: 6px; color: var(--secondary); }
+        .learning-item p { color: var(--muted); font-size: 14px; }
+        .steps { display: grid; gap: 13px; }
+        .step {
+            display: grid; grid-template-columns: 38px 1fr; gap: 13px;
+            align-items: start;
+        }
+        .step-num {
+            width: 34px; height: 34px; display: grid; place-items: center;
+            border-radius: 50%; background: var(--primary); color: white; font-weight: 800;
+        }
+        .step p { color: var(--muted); }
+        code {
+            font-family: Consolas, "Courier New", monospace;
+            background: var(--soft); color: var(--secondary);
+            padding: 2px 5px; border-radius: 5px; font-size: .93em;
+        }
+        pre {
+            overflow-x: auto; padding: 15px 17px; margin-top: 10px;
+            background: #102a38; color: #d9f3ff; border-radius: 10px;
+            font: 13px/1.65 Consolas, "Courier New", monospace;
+        }
+        .note {
+            margin-top: 14px; padding: 13px 16px; border-left: 4px solid var(--accent);
+            background: var(--soft); color: var(--muted); border-radius: 0 9px 9px 0;
+            font-size: 14px;
+        }
+        .reflection {
+            padding: 19px 21px; border-radius: 10px;
+            background: var(--soft); color: var(--muted);
+            border-left: 4px solid var(--primary);
+        }
+        footer { text-align: center; padding: 8px 18px 28px; color: var(--muted); font-size: 13px; }
+        body.dark-mode {
+            --primary: #67d3f3; --secondary: #b8eafa; --accent: #38bdf8;
+            --bg: #0b1720; --card: #142633; --soft: #1b3544;
+            --text: #e4f2f7; --muted: #b1c8d2; --border: #294453;
+            --shadow: 0 10px 28px rgba(0,0,0,.2);
+        }
+        body.dark-mode .theme-btn { color: #08212d; }
+        @media (max-width: 600px) {
+            .nav-inner { justify-content: center; }
+            .nav-links { justify-content: center; gap: 12px; }
+            .card { padding: 21px 18px; }
+            header { padding: 34px 19px; }
+            .profile { justify-content: center; text-align: center; }
+            .profile-grid { text-align: left; }
+        }
+        @media print {
+            nav, .theme-btn { display: none; }
+            body { background: white; }
+            .container { margin-top: 0; }
+            .card, header { box-shadow: none; break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav-inner">
+        <div class="brand">Ngô Khánh Linh | Portfolio JavaScript</div>
+        <div class="nav-links">
+            <a href="#thong-tin">Thông tin</a>
+            <a href="#buoi-hoc">Buổi học hôm nay</a>
+            <a href="#kien-thuc">Nay học được gì?</a>
+            <a href="#tu-danh-gia">Tự đánh giá</a>
+            <button class="theme-btn" id="toggleTheme" type="button">Giao diện tối</button>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+    <header>
+        <span class="eyebrow">BÀI TẬP THỰC HÀNH • BUỔI 05</span>
+        <h1>THỰC HÀNH JAVASCRIPT VỚI CHROME DINO</h1>
+        <p>Học phần: Phát triển ứng dụng Thương mại điện tử | Giảng viên: TS. Nguyễn Mạnh Tuấn</p>
+    </header>
+
+    <section class="card" id="thong-tin">
+        <h2 class="section-title">1. Thông tin cá nhân</h2>
+        <div class="profile">
+            <img class="avatar" src="avatar.jpg" onerror="this.src='https://github.com/nklinh2811.png'" alt="Ảnh đại diện Ngô Khánh Linh">
+            <div class="profile-grid">
+                <div><strong>Họ và tên:</strong> Ngô Khánh Linh</div>
+                <div><strong>Mã số sinh viên:</strong> 31241027738</div>
+                <div><strong>Lớp học phần:</strong> 26C1INF50902701</div>
+                <div><strong>Chuyên ngành:</strong> Thương mại điện tử – UEH</div>
+                <div style="grid-column: 1 / -1;">
+                    <strong>GitHub cá nhân:</strong>
+                    <a href="https://github.com/nklinh2811" target="_blank" rel="noopener">github.com/nklinh2811</a>
+                    &nbsp;|&nbsp;
+                    <a href="https://github.com/nklinh2811/BaiTapPTUD" target="_blank" rel="noopener">Repository BaiTapPTUD</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card" id="buoi-hoc">
+        <h2 class="section-title">2. Nội dung thực hành buổi 5</h2>
+        <div class="intro">
+            <p>Trong buổi học này, mình thực hành sử dụng JavaScript trực tiếp trên trò chơi Chrome Dino thông qua Developer Tools (DevTools), đặc biệt là khu vực Console. Thay vì chỉ quan sát trò chơi, mình thử kiểm tra các đối tượng và phương thức có sẵn, sau đó thay đổi một số hành vi của trò chơi bằng cách gọi hàm JavaScript.</p>
+            <p>Nội dung thực hành tập trung vào việc tìm hiểu đối tượng <code>Runner</code>, kiểm tra các thuộc tính và phương thức, vô hiệu hóa xử lý kết thúc trò chơi, điều chỉnh tốc độ chạy và thử thay đổi độ nhảy của nhân vật.</p>
+        </div>
+    </section>
+
+    <section class="card" id="kien-thuc">
+        <h2 class="section-title">3. Nay học được gì?</h2>
+        <div class="learning-grid">
+            <article class="learning-item">
+                <span class="number">01</span>
+                <h3>Làm quen với DevTools Console</h3>
+                <p>Biết mở Console trên trình duyệt, nhập lệnh JavaScript và đọc kết quả trả về để kiểm tra hoạt động của chương trình.</p>
+            </article>
+            <article class="learning-item">
+                <span class="number">02</span>
+                <h3>Kiểm tra đối tượng JavaScript</h3>
+                <p>Sử dụng <code>typeof</code>, <code>Object.keys()</code> và <code>Object.getOwnPropertyNames()</code> để tìm hiểu đối tượng và các thuộc tính, phương thức của nó.</p>
+            </article>
+            <article class="learning-item">
+                <span class="number">03</span>
+                <h3>Ghi đè hàm (Override)</h3>
+                <p>Thực hành gán lại hàm <code>gameOver</code> bằng một hàm rỗng để tìm hiểu cách thay đổi hành vi có sẵn của trò chơi.</p>
+            </article>
+            <article class="learning-item">
+                <span class="number">04</span>
+                <h3>Gọi phương thức để thay đổi trò chơi</h3>
+                <p>Thử sử dụng các phương thức như <code>setSpeed()</code> và điều chỉnh thông số nhảy của nhân vật để quan sát sự thay đổi.</p>
+            </article>
+            <article class="learning-item">
+                <span class="number">05</span>
+                <h3>Đọc và xử lý lỗi</h3>
+                <p>Nhận biết lỗi <code>undefined</code> khi truy cập thuộc tính không tồn tại, từ đó kiểm tra lại cách lấy instance của trò chơi.</p>
+            </article>
+            <article class="learning-item">
+                <span class="number">06</span>
+                <h3>Thử nghiệm và quan sát kết quả</h3>
+                <p>Biết thực hiện từng lệnh, quan sát phản hồi của trình duyệt và điều chỉnh cách truy cập đối tượng khi kết quả chưa đúng.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2 class="section-title">4. Một số thao tác JavaScript đã thực hành</h2>
+        <div class="steps">
+            <div class="step">
+                <span class="step-num">1</span>
+                <div>
+                    <strong>Kiểm tra đối tượng Runner</strong>
+                    <p>Dùng <code>typeof Runner</code> để kiểm tra Runner có được nhận diện hay không.</p>
+                    <pre>typeof Runner</pre>
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-num">2</span>
+                <div>
+                    <strong>Xem các phương thức của Runner</strong>
+                    <p>Quan sát danh sách phương thức được định nghĩa trên prototype và các thuộc tính riêng của Runner.</p>
+                    <pre>Object.getOwnPropertyNames(Runner.prototype)
+Object.getOwnPropertyNames(Runner)</pre>
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-num">3</span>
+                <div>
+                    <strong>Thử ghi đè hàm gameOver</strong>
+                    <p>Gán lại hàm xử lý kết thúc trò chơi bằng hàm rỗng để tìm hiểu cơ chế override.</p>
+                    <pre>Runner.prototype.gameOver = function() {}</pre>
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-num">4</span>
+                <div>
+                    <strong>Thử thay đổi tốc độ và độ nhảy</strong>
+                    <p>Sau khi xác định được instance của trò chơi, gọi phương thức tương ứng để thử thay đổi thông số.</p>
+                    <pre>// Ví dụ thao tác điều chỉnh tốc độ
+Runner.getInstance().setSpeed(20);
+
+// Thử điều chỉnh độ nhảy nếu phiên bản trò chơi hỗ trợ thuộc tính này
+Runner.getInstance().tRex.setJumpVelocity(20);</pre>
+                </div>
+            </div>
+        </div>
+        <div class="note">
+            <strong>Lưu ý:</strong> Tên thuộc tính và phương thức có thể khác nhau tùy phiên bản Chrome Dino. Trong lúc thực hành, mình đã gặp trường hợp <code>Runner.instance_</code> trả về <code>undefined</code>, vì vậy cần kiểm tra cấu trúc đối tượng và sử dụng phương thức khởi tạo/lấy instance phù hợp với phiên bản đang chạy.
+        </div>
+    </section>
+
+    <section class="card" id="tu-danh-gia">
+        <h2 class="section-title">5. Tự đánh giá sau buổi học</h2>
+        <div class="reflection">
+            Qua buổi thực hành, mình hiểu rõ hơn cách JavaScript có thể tương tác trực tiếp với các đối tượng đang hoạt động trên trang web thông qua Console của trình duyệt. Mình đã biết cách kiểm tra kiểu dữ liệu, xem danh sách thuộc tính và phương thức, gọi hàm có sẵn cũng như thử ghi đè một hàm để thay đổi hành vi của trò chơi Chrome Dino. Trong quá trình thực hiện, mình gặp lỗi khi truy cập một thuộc tính trả về <code>undefined</code>. Qua đó, mình rút ra rằng cần kiểm tra cấu trúc đối tượng trước khi gọi phương thức, không nên mặc định mọi phiên bản đều có cùng tên thuộc tính. Buổi học giúp mình tự tin hơn khi sử dụng DevTools để thử nghiệm JavaScript và tìm nguyên nhân gây lỗi.
+        </div>
+    </section>
+</main>
+
+<footer>
+    &copy; 2026 Ngô Khánh Linh (31241027738) – Học phần Phát triển ứng dụng Thương mại điện tử, UEH
+</footer>
+
+<script>
+    // Chuyển đổi giao diện sáng và tối
+    const toggleThemeButton = document.getElementById("toggleTheme");
+
+    toggleThemeButton.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+
+        toggleThemeButton.textContent =
+            document.body.classList.contains("dark-mode")
+                ? "Giao diện sáng"
+                : "Giao diện tối";
+    });
+</script>
+</body>
+</html>
