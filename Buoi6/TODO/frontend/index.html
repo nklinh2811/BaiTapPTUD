@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dayflow — Personal Task Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">d.</span><span>dayflow</span></a>
+      <div class="side-label">WORKSPACE</div>
+      <nav>
+        <button class="nav-link active" data-page="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-link" data-page="tasks"><span>☷</span> My Tasks</button>
+        <button class="nav-link" data-page="statistics"><span>▥</span> Statistics</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mini-profile"><div class="avatar">L</div><div><b>My workspace</b><small>Personal account</small></div></div>
+        <p class="side-note">Make today count ✦</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><span class="eyebrow" id="todayLabel">YOUR WORKSPACE</span><h1 id="pageTitle">Good morning! <span>✦</span></h1></div>
+        <div class="top-actions"><div class="date-pill" id="datePill"></div><button class="primary-btn" id="addTaskBtn">＋ Add task</button></div>
+      </header>
+
+      <section class="page active" id="dashboardPage">
+        <div class="welcome-banner">
+          <div><span class="banner-tag">YOUR DAILY SPACE</span><h2>A little progress<br>goes a long way.</h2><p>Keep your focus, one task at a time.</p></div>
+          <div class="banner-art"><span class="sun">✳</span><div class="art-card">✦<br><small>YOU GOT THIS!</small></div></div>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card pink"><div class="stat-icon">▤</div><span>Total tasks</span><strong id="totalCount">0</strong><small>All your tasks</small></article>
+          <article class="stat-card yellow"><div class="stat-icon">◷</div><span>In progress</span><strong id="progressCount">0</strong><small>Keep it moving</small></article>
+          <article class="stat-card purple"><div class="stat-icon">✓</div><span>Completed</span><strong id="completedCount">0</strong><small>Look at you go!</small></article>
+          <article class="stat-card cream"><div class="stat-icon">!</div><span>Overdue</span><strong id="overdueCount">0</strong><small>Needs your attention</small></article>
+        </div>
+        <div class="content-grid">
+          <section class="panel task-panel">
+            <div class="section-heading"><div><span class="eyebrow">STAY ON TRACK</span><h3>Today's tasks</h3></div><button class="text-btn" data-goto="tasks">View all →</button></div>
+            <div class="progress-line"><span id="todayProgressText">0 of 0 completed</span><b id="todayPercent">0%</b></div>
+            <div class="progress-track"><div id="todayProgressBar"></div></div>
+            <div id="todayTasks" class="task-list"></div>
+          </section>
+          <section class="panel focus-panel">
+            <div class="section-heading"><div><span class="eyebrow">A QUICK LOOK</span><h3>Task overview</h3></div><span class="sparkle">✳</span></div>
+            <div class="donut-wrap"><div class="donut" id="donut"><div><strong id="donutPercent">0%</strong><small>completed</small></div></div></div>
+            <div class="legend"><span><i class="dot purple-dot"></i> Completed <b id="legendCompleted">0</b></span><span><i class="dot yellow-dot"></i> In progress <b id="legendProgress">0</b></span><span><i class="dot pink-dot"></i> To do <b id="legendTodo">0</b></span></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="page" id="tasksPage">
+        <div class="panel">
+          <div class="section-heading"><div><span class="eyebrow">GET THINGS DONE</span><h3>All tasks</h3></div><button class="primary-btn" id="addTaskBtn2">＋ New task</button></div>
+          <div class="toolbar"><input id="searchInput" type="search" placeholder="⌕  Search tasks..."><select id="statusFilter"><option value="">All statuses</option><option value="todo">To do</option><option value="in_progress">In progress</option><option value="completed">Completed</option></select><select id="priorityFilter"><option value="">All priorities</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div>
+          <div id="allTasks" class="task-list"></div>
+        </div>
+      </section>
+
+      <section class="page" id="statisticsPage">
+        <div class="stats-grid stats-grid-wide">
+          <article class="stat-card pink"><span>Total tasks</span><strong id="sTotal">0</strong><small>Tasks in database</small></article>
+          <article class="stat-card purple"><span>Completed</span><strong id="sCompleted">0</strong><small>Successfully done</small></article>
+          <article class="stat-card yellow"><span>In progress</span><strong id="sProgress">0</strong><small>Currently working</small></article>
+          <article class="stat-card cream"><span>Overdue</span><strong id="sOverdue">0</strong><small>Past the deadline</small></article>
+        </div>
+        <div class="panel chart-panel"><div class="section-heading"><div><span class="eyebrow">YOUR PRODUCTIVITY</span><h3>Completion overview</h3></div><span class="chart-caption">Based on saved tasks</span></div><div id="barChart" class="bar-chart"></div></div>
+        <div class="panel"><div class="section-heading"><div><span class="eyebrow">TASK BREAKDOWN</span><h3>By status</h3></div></div><div id="statusBreakdown" class="breakdown"></div></div>
+      </section>
+      <footer>Made for your little everyday wins <span>✳</span></footer>
+    </main>
+  </div>
+
+  <dialog id="taskDialog">
+    <form id="taskForm">
+      <div class="dialog-heading"><div><span class="eyebrow">MAKE IT HAPPEN</span><h2 id="dialogTitle">Create a task</h2></div><button type="button" class="close-btn" id="closeDialog">×</button></div>
+      <input type="hidden" id="taskId">
+      <label>Task name *<input id="taskTitle" required maxlength="180" placeholder="What do you need to do?"></label>
+      <label>Description<textarea id="taskDescription" rows="3" placeholder="Add a little detail..."></textarea></label>
+      <div class="form-row"><label>Start date<input type="date" id="startDate"></label><label>Deadline *<input type="date" id="dueDate" required></label></div>
+      <div class="form-row"><label>Priority<select id="taskPriority"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></label><label>Status<select id="taskStatus"><option value="todo">To do</option><option value="in_progress">In progress</option><option value="completed">Completed</option></select></label></div>
+      <label>Category<input id="taskCategory" value="Personal" placeholder="Study, Work, Personal..."></label>
+      <div class="dialog-actions"><button type="button" class="secondary-btn" id="cancelDialog">Cancel</button><button class="primary-btn" type="submit">Save task</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>
